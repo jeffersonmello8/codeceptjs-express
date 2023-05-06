@@ -15,6 +15,12 @@ exports.config = {
       url: 'http://localhost:3000',
       show: true,
       browser: 'chromium'
+    },
+    REST: {
+      endpoint: 'http://localhost:3333'
+    },
+    JSONResponse: {
+      requestHelper: 'REST'
     }
   },
   include: {
