@@ -24,7 +24,7 @@ exports.config = {
     }
   },
   include: {
-    I: './steps_file.js'
+    I: './support/steps_file.js'
   },
   name: 'codecept-express'
 }
