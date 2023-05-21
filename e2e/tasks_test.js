@@ -35,4 +35,24 @@ Scenario('não deve poder cadastrar tarefas com nome duplicados', ({ I, tasksPag
 
     tasksPage.create(task.name)
     tasksPage.havePopUpText(errorMsg)
+}).tag('critical')
+
+const manyTasks = new DataTable(['name'])
+
+manyTasks.add(['Comprar banana e aveia'])
+manyTasks.add(['Pagar a academia'])
+manyTasks.add(['Varrer a casa'])
+manyTasks.add(['Limpar a piscina'])
+manyTasks.add(['Colocar a ração dos gatos'])
+manyTasks.add(['Ouvir um podcast em inglês'])
+
+
+Data(manyTasks).Scenario('deve poder cadastrar tarefas usando a função DataTable do CodeceptJS', ({ I, tasksPage, current }) => {
+
+    const taskName = current.name
+
+    I.deleteByHelper(taskName)
+
+    tasksPage.create(taskName)
+    tasksPage.haveText(taskName)
 })
