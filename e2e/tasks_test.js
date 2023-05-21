@@ -2,30 +2,25 @@ const { faker } = require('@faker-js/faker')
 
 Feature('tasks')
 
-Scenario.skip('deve poder cadastrar uma nova tarefa usando dados dinâmicos', ({ I }) => {
+Scenario('deve poder cadastrar uma nova tarefa usando dados dinâmicos', ({ tasksPage }) => {
 
     const taskName = `Ouvir e traduzir a música ${faker.music.songName()}`
 
-    I.amOnPage('/')
-
-    I.fillField('input[placeholder$=Task]', taskName)
-    I.click('Create')
-
-    I.see(taskName, '.task-item')
+    tasksPage.create(taskName)
+    tasksPage.haveText(taskName)
 })
 
-Scenario('deve poder cadastrar uma nova tarefa usando dados fixos', ({ I }) => {
+Scenario('deve poder cadastrar uma nova tarefa usando dados fixos', ({ I, tasksPage }) => {
 
     const taskName = `Concluir o curso de JavaScript + React`
 
     I.deleteByHelper(taskName)
 
-    I.createTask(taskName)
-    
-    I.see(taskName, '.task-item')
+    tasksPage.create(taskName)
+    tasksPage.haveText(taskName)
 })
 
-Scenario('não deve poder cadastrar tarefas com nome duplicados', ({ I }) => {
+Scenario('não deve poder cadastrar tarefas com nome duplicados', ({ I, tasksPage }) => {
 
     const task = {
         "name": 'Terminar a escrita do novo artigo sobre qualidade',
@@ -38,7 +33,6 @@ Scenario('não deve poder cadastrar tarefas com nome duplicados', ({ I }) => {
 
     I.postTask(task)
 
-    I.createTask(task.name)
-
-    I.see(errorMsg, '.swal2-html-container')
+    tasksPage.create(task.name)
+    tasksPage.havePopUpText(errorMsg)
 })
