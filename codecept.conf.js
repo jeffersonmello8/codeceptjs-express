@@ -24,11 +24,19 @@ exports.config = {
     },
     JSONResponse: {
       requestHelper: 'REST'
-    }
+    },
+    Mochawesome: {
+      uniqueScreenshotNames: true
+  }
   },
   include: {
     I: './support/steps_file.js',
     tasksPage: "./pages/tasks.js"
+  },
+  mocha: {
+    reporterOptions: {
+      reportDir: "output"
+    }
   },
   name: 'codecept-express'
 }
